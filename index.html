@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>吳老師的美勞小天地</title>
+
+  <style>
+    /* =========================
+       基本設定
+    ========================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+      background: #fffdf7;
+      color: #3f4a4d;
+      line-height: 1.8;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+
+    /* =========================
+       導覽列
+    ========================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 253, 247, 0.95);
+      border-bottom: 1px solid #eee7d9;
+    }
+
+    .navbar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 800;
+      color: #344c55;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: #ffd66b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav a {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .nav a:hover {
+      background: #fff0b8;
+      transform: translateY(-2px);
+    }
+
+
+    /* =========================
+       Hero 主視覺
+    ========================= */
+
+    .hero {
+      padding: 75px 0 60px;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-text {
+      order: 2;
+    }
+
+    .hero-illustration {
+      order: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hello {
+      display: inline-block;
+      background: #bde6f7;
+      padding: 5px 18px;
+      border-radius: 30px;
+      font-size: 22px;
+      font-weight: 800;
+      transform: rotate(-3deg);
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 76px);
+      color: #315565;
+      margin: 12px 0;
+      line-height: 1.2;
+    }
+
+    .hero h2 {
+      font-size: 25px;
+      color: #ef8c72;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 530px;
+      color: #626c6e;
+    }
+
+    /* 簡單老師插畫 */
+
+    .teacher {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: #dff3fb;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .teacher-face {
+      width: 145px;
+      height: 160px;
+      background: #f9c6a8;
+      border-radius: 48% 48% 45% 45%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hair {
+      width: 160px;
+      height: 125px;
+      background: #795548;
+      border-radius: 55% 55% 30% 30%;
+      position: absolute;
+      top: 48px;
+      z-index: 3;
+    }
+
+    .hair::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      width: 45px;
+      height: 45px;
+      background: #795548;
+      border-radius: 50%;
+    }
+
+    .eye {
+      width: 13px;
+      height: 18px;
+      background: #3d3531;
+      border-radius: 50%;
+      position: absolute;
+      top: 68px;
+    }
+
+    .eye.left {
+      left: 38px;
+    }
+
+    .eye.right {
+      right: 38px;
+    }
+
+    .mouth {
+      width: 35px;
+      height: 18px;
+      border-bottom: 4px solid #df725f;
+      border-radius: 50%;
+      position: absolute;
+      left: 55px;
+      top: 102px;
+    }
+
+    .paintbrush {
+      position: absolute;
+      right: 18px;
+      top: 65px;
+      font-size: 55px;
+      transform: rotate(-25deg);
+      z-index: 5;
+    }
+
+    .palette {
+      position: absolute;
+      bottom: 38px;
+      right: 45px;
+      font-size: 65px;
+      z-index: 5;
+    }
+
+
+    /* =========================
+       班級標籤
+    ========================= */
+
+    .class-badge {
+      display: inline-block;
+      background: #ffe27a;
+      color: #3f4a4d;
+      padding: 14px 28px;
+      border-radius: 25px;
+      font-size: 25px;
+      font-weight: 800;
+      margin-top: 25px;
+      transform: rotate(2deg);
+    }
+
+
+    /* =========================
+       四大功能卡片
+    ========================= */
+
+    .cards-section {
+      padding: 40px 0 90px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 30px 22px;
+      min-height: 245px;
+      border-radius: 30px;
+      text-align: center;
+      transition: 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(70, 70, 70, 0.08);
+    }
+
+    .card:nth-child(1) {
+      background: #ffe9e5;
+    }
+
+    .card:nth-child(2) {
+      background: #e4f4fb;
+    }
+
+    .card:nth-child(3) {
+      background: #fff3c9;
+    }
+
+    .card:nth-child(4) {
+      background: #e4f3e4;
+    }
+
+    .card-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 25px;
+      color: #315565;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #596467;
+    }
+
+    .card-button {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 5px 20px;
+      background: white;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       內容區塊
+    ========================= */
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title span {
+      display: inline-block;
+      font-size: 15px;
+      color: #ef967f;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      color: #315565;
+      margin-top: 5px;
+    }
+
+
+    /* =========================
+       班級資訊
+    ========================= */
+
+    .class-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .info-box {
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      border: 2px dashed #e6ddcb;
+    }
+
+    .info-box h3 {
+      color: #315565;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+
+
+    /* =========================
+       課程資訊
+    ========================= */
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .course {
+      background: white;
+      border-radius: 25px;
+      padding: 25px;
+      border: 1px solid #eee6d8;
+    }
+
+    .course-icon {
+      font-size: 38px;
+    }
+
+    .course h3 {
+      color: #315565;
+      margin: 10px 0;
+    }
+
+
+    /* =========================
+       親師互動
+    ========================= */
+
+    .parent-box {
+      background: #e8f5e7;
+      border-radius: 35px;
+      padding: 45px;
+      text-align: center;
+    }
+
+    .parent-box h2 {
+      color: #315565;
+      margin-bottom: 10px;
+    }
+
+    .parent-box p {
+      margin-bottom: 25px;
+    }
+
+    .parent-button {
+      display: inline-block;
+      background: #65b889;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .parent-button:hover {
+      transform: scale(1.05);
+    }
+
+
+    /* =========================
+       Footer
+    ========================= */
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      background: #fff3ce;
+      color: #667174;
+      font-size: 14px;
+    }
+
+    .monster-row {
+      font-size: 38px;
+      margin-bottom: 10px;
+      letter-spacing: 8px;
+    }
+
+
+    /* =========================
+       手機版
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .navbar {
+        height: auto;
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav a {
+        padding: 6px 10px;
+        font-size: 14px;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-text {
+        order: 1;
+      }
+
+      .hero-illustration {
+        order: 2;
+      }
+
+      .hero p {
+        margin: auto;
+      }
+
+      .teacher {
+        width: 250px;
+        height: 250px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .class-info {
+        grid-template-columns: 1fr;
+      }
+
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    @media (max-width: 500px) {
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .class-badge {
+        font-size: 20px;
+      }
+
+      .parent-box {
+        padding: 30px 20px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- =========================
+       導覽列
+  ========================= -->
+
+  <header>
+    <div class="container navbar">
+
+      <a href="#home" class="logo">
+        <span class="logo-icon">🎨</span>
+        吳老師的美勞小天地
+      </a>
+
+      <nav class="nav">
+        <a href="#home">🏠 首頁</a>
+        <a href="#course">📖 課程資訊</a>
+        <a href="#parent">👨‍👩‍👧 親師互動</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       首頁 Hero
+  ========================= -->
+
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="container hero-content">
+
+        <div class="hero-text">
+
+          <span class="hello">我是</span>
+
+          <h1>吳老師 :)</h1>
+
+          <h2>喜歡用美術，陪孩子看見世界的更多顏色！</h2>
+
+          <p>
+            我相信，每個孩子都有屬於自己的創造力。
+            美勞課不只是畫畫，更是想像、表達與探索的開始。
+            很開心能和你們一起，在色彩與創意中，
+            度過每一段快樂的學習時光！
+          </p>
+
+          <div class="class-badge">
+            👾 一年級・小怪獸班
+          </div>
+
+        </div>
+
+
+        <!-- 簡單可愛老師圖像 -->
+
+        <div class="hero-illustration">
+
+          <div class="teacher">
+
+            <div class="hair"></div>
+
+            <div class="teacher-face">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="mouth"></div>
+            </div>
+
+            <div class="paintbrush">🖌️</div>
+            <div class="palette">🎨</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         四大入口
+    ========================= -->
+
+    <section class="cards-section">
+
+      <div class="container">
+
+        <div class="cards">
+
+          <a href="#class" class="card">
+
+            <div class="card-icon">🏫</div>
+
+            <h3>班級資訊</h3>
+
+            <p>
+              一年級<br>
+              小怪獸班
+            </p>
+
+            <span class="card-button">
+              一起發現美・創造美！
+            </span>
+
+          </a>
+
+
+          <a href="#teacher" class="card">
+
+            <div class="card-icon">👩‍🎨</div>
+
+            <h3>老師介紹</h3>
+
+            <p>
+              吳老師<br>
+              用美術陪孩子看見更大的世界
+            </p>
+
+          </a>
+
+
+          <a href="#course" class="card">
+
+            <div class="card-icon">🎨</div>
+
+            <h3>課程資訊</h3>
+
+            <p>
+              多元媒材・創意表現<br>
+              生活美學・動手做
+            </p>
+
+          </a>
+
+
+          <a href="#parent" class="card">
+
+            <div class="card-icon">📣</div>
+
+            <h3>親師互動</h3>
+
+            <p>
+              活動公告・聯絡資訊<br>
+              孩子的學習與成長
+            </p>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         班級資訊
+    ========================= -->
+
+    <section class="section" id="class">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>OUR CLASS</span>
+          <h2>👾 小怪獸班</h2>
+        </div>
+
+
+        <div class="class-info">
+
+          <div class="info-box">
+
+            <h3>🏫 班級基本資料</h3>
+
+            <ul class="info-list">
+              <li>📚 年級：一年級</li>
+              <li>👾 班級：小怪獸班</li>
+              <li>👩‍🎨 美勞老師：吳老師</li>
+              <li>🎨 課程：視覺藝術與美勞</li>
+            </ul>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <h3>💡 上課小提醒</h3>
+
+            <ul class="info-list">
+              <li>🎒 上課請攜帶基本美勞用品</li>
+              <li>👕 建議穿著方便活動的衣服</li>
+              <li>👐 勇敢嘗試，不怕弄髒</li>
+              <li>💭 帶著想像力來上課！</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         老師介紹
+    ========================= -->
+
+    <section class="section" id="teacher">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>ABOUT TEACHER</span>
+          <h2>👩‍🎨 關於吳老師</h2>
+        </div>
+
+
+        <div class="info-box">
+
+          <h3>嗨！我是吳老師 🌱</h3>
+
+          <p>
+            歡迎來到吳老師的美勞小天地！
+          </p>
+
+          <br>
+
+          <p>
+            在美勞課裡，我希望孩子可以自由地觀察、
+            想像、動手做，也能從創作中找到自己的想法。
+          </p>
+
+          <br>
+
+          <p>
+            每一幅作品不一定要「畫得很像」，
+            更重要的是它能不能說出孩子自己的故事。
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         課程資訊
+    ========================= -->
+
+    <section class="section" id="course">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>ART CLASS</span>
+          <h2>🎨 課程資訊</h2>
+        </div>
+
+
+        <div class="course-grid">
+
+          <div class="course">
+            <div class="course-icon">🖍️</div>
+            <h3>繪畫創作</h3>
+            <p>
+              練習觀察與表達，用不同方式畫出自己的想法。
+            </p>
+          </div>
+
+
+          <div class="course">
+            <div class="course-icon">✂️</div>
+            <h3>手作創意</h3>
+            <p>
+              運用剪紙、黏土、拼貼等媒材進行創作。
+            </p>
+          </div>
+
+
+          <div class="course">
+            <div class="course-icon">🌈</div>
+            <h3>生活美學</h3>
+            <p>
+              從生活中的色彩、形狀與美感發現藝術。
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         親師互動
+    ========================= -->
+
+    <section class="section" id="parent">
+
+      <div class="container">
+
+        <div class="parent-box">
+
+          <h2>💌 親師互動</h2>
+
+          <p>
+            未來這裡可以放置活動公告、課程提醒、
+            作品分享以及親師聯絡資訊。
+          </p>
+
+          <a href="#" class="parent-button">
+            敬請期待 ✨
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       Footer
+  ========================= -->
+
+  <footer>
+
+    <div class="monster-row">
+      👾 🐳 👾 🐱 👾
+    </div>
+
+    <p>
+      © 2026 吳老師的美勞小天地
+    </p>
+
+    <p>
+      一起發現美・創造美・享受創作的樂趣！
+    </p>
+
+  </footer>
+
+
+</body>
+</html>
